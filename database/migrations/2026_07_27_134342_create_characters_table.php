@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('story_id')->constrained('stories')->cascadeOnDelete();
+            $table->string('name', 100);
+            $table->text('description')->nullable();
+            $table->string('avatar')->nullable();
+            $table->boolean('is_primary')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

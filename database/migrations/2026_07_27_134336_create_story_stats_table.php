@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('story_stats', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('story_id')->unique()->constrained('stories')->cascadeOnDelete();
+            $table->unsignedBigInteger('total_views')->default(0);
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('login_tokens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('token', 255)->index();
+            $table->timestamp('expires_at');
+            $table->timestamp('used_at')->nullable();
             $table->timestamps();
         });
     }

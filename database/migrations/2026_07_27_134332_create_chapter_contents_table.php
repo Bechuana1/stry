@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('chapter_contents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('chapter_id')->unique()->constrained('chapters')->cascadeOnDelete();
+            $table->longText('content_markdown');
+            $table->longText('content_html');
             $table->timestamps();
         });
     }

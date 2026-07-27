@@ -13,7 +13,19 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
+            $table->string('stripe_session_id')->unique();
+            $table->string('stripe_payment_intent_id')->nullable();
+            $table->enum('type', ['gem_purchase', 'subscription']);
+            $table->unsignedInteger('amount_cents');
+            $table->unsignedInteger('gem_amount')->nullable();
+            $table->enum('subscription_interval', ['monthly', 'yearly'])->nullable();
+            $table->enum('status', ['pending', 'completed', 'refunded', 'failed'])->default('pending');
+            $table->string('failure_reason')->nullable();
+            $table->timestamp('refunded_at')->nullable();
             $table->timestamps();
+            
+            $table->index('status');
         });
     }
 

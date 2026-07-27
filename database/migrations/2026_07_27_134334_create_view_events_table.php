@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('view_events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('chapter_id')->constrained('chapters')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->restrictOnDelete();
+            $table->string('session_id', 100);
+            $table->string('ip_address', 45)->nullable();
             $table->timestamps();
+            
+            $table->index('created_at');
         });
     }
 

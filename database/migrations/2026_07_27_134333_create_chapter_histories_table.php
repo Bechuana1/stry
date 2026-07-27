@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('chapter_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('chapter_id')->constrained('chapters')->cascadeOnDelete();
+            $table->unsignedInteger('revision');
+            $table->longText('content_markdown');
+            $table->longText('content_html');
+            $table->unsignedInteger('word_count');
+            $table->foreignId('created_by')->constrained('users')->restrictOnDelete();
+            $table->string('rollback_comment')->nullable();
             $table->timestamps();
+            
+            $table->unique(['chapter_id', 'revision']);
         });
     }
 

@@ -13,7 +13,19 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
+            $table->foreignId('chapter_id')->constrained('chapters')->cascadeOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnDelete();
+            $table->text('content');
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->unsignedInteger('report_count')->default(0);
+            $table->boolean('is_hidden')->default(false);
+            $table->boolean('is_edited')->default(false);
+            $table->softDeletes();
             $table->timestamps();
+            
+            $table->index(['chapter_id', 'parent_id', 'created_at']);
         });
     }
 

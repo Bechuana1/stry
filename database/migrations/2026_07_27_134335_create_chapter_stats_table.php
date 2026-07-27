@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('chapter_stats', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('chapter_id')->unique()->constrained('chapters')->cascadeOnDelete();
+            $table->unsignedBigInteger('total_views')->default(0);
+            $table->unsignedBigInteger('unique_readers')->default(0);
+            $table->timestamp('updated_at')->nullable();
+            
+            $table->index('total_views');
         });
     }
 

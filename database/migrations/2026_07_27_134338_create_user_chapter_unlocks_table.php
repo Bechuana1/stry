@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('user_chapter_unlocks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
+            $table->foreignId('chapter_id')->constrained('chapters')->restrictOnDelete();
+            $table->unsignedInteger('gems_spent')->default(2);
+            $table->string('ip_address', 45)->nullable();
             $table->timestamps();
+            
+            $table->unique(['user_id', 'chapter_id']);
         });
     }
 
