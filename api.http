@@ -6,12 +6,12 @@ curl -X POST http://localhost:8000/api/auth/request-link \
 #### grab genres
 curl http://localhost:8000/api/stories/genres
 
-
-#### grab a story 
-curl http://localhost:8000/api/stories/et-dolor-repellat-808
-
 #### grab all stories
 curl http://localhost:8000/api/stories
 
 #### get an authenticated user 
 curl http://localhost:8000/api/user
+
+#### grab a story 
+curl http://localhost:8000/api/stories/et-dolor-repellat-808
+
