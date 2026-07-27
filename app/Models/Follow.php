@@ -2,9 +2,31 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Follow extends Model
 {
-    //
+    use HasFactory;
+
+    protected $fillable = [
+        'follower_id',
+        'followed_user_id',
+        'notify_by_email',
+    ];
+
+    protected $casts = [
+        'notify_by_email' => 'boolean',
+    ];
+
+    // ---------- Relationships ----------
+    public function follower()
+    {
+        return $this->belongsTo(User::class, 'follower_id');
+    }
+
+    public function followedUser()
+    {
+        return $this->belongsTo(User::class, 'followed_user_id');
+    }
 }
